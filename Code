@@ -11,9 +11,14 @@ public class InventoryManager : MonoBehaviour{
  public void newSlotsArray(int newLength) {
   InventorySlot[] newSlots = new InventorySlot[newLength];
   for (int i=0; i<slots.Length; i++){
-   if (i < newLength){ newSlots[i] = slots[i]; }
+   if (i < newLength) { newSlots[i] = slots[i]; }
    else { DropItem(slots[i]);}
   }
  }
  public void DropItem(InventorySlot slot) { Instantiate(slot.item.gameObject, transform.position, transform.rotation); slot.item = empty; }
+#if UNITY_EDITOR
+ public void debugGrantItem(InventorySlot slot, InventoryItem item) { slot.item = item; slot.count = item.limit; }
+ public void debugForceUseItem(InventorySlot slot){ slot.Use(); }
+#endif
+
 }
